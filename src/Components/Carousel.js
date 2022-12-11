@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTransition, animated } from "react-spring";
 
 export const Carousel = () => {
   const [imageURL, setImageURL] = useState([]);
@@ -14,23 +15,26 @@ export const Carousel = () => {
       });
   }, []);
 
-  useEffect(() => {
-    //setting image change timeout
-    let imageChangeInterval = setTimeout(() => {
+  const transitions = useTransition(imageURL[currentImageNo], {
+    from: { opacity: 0, scale: 0 },
+    enter: { opacity: 1, scale: 1 },
+    leave: { opacity: 0, scale: 0 },
+    delay: 500,
+    exitBeforeEnter: true,
+    onRest: () => {
       if (currentImageNo < imageURL.length - 1) {
         setCurrentImageNo((currentImageNo) => currentImageNo + 1);
       } else {
         setCurrentImageNo(0);
       }
-    }, 2000);
-    return () => {
-      clearTimeout(imageChangeInterval);
-    };
-  }, [imageURL, currentImageNo]);
+    },
+  });
 
   return (
     <div className="w-[80%] min-w-[100px] max-w-[500px] aspect-square border border-gray-500 rounded-2xl p-2">
-      <img src={imageURL[currentImageNo]} alt="" className="rounded-2xl" />
+      {transitions((style, item) => (
+        <animated.img src={item} alt="" className="rounded-2xl" style={style} />
+      ))}
     </div>
   );
 };
