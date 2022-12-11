@@ -16,9 +16,9 @@ export const Carousel = () => {
   }, []);
 
   const transitions = useTransition(imageURL[currentImageNo], {
-    from: { opacity: 0, scale: 0 },
-    enter: { opacity: 1, scale: 1 },
-    leave: { opacity: 0, scale: 0 },
+    from: { opacity: 0, scale: 0 ,rotateZ:180},
+    enter: { opacity: 1, scale: 1 ,rotateZ: 0},
+    leave: { opacity: 0,rotateZ: 180, scale: 0.5 },
     delay: 500,
     exitBeforeEnter: true,
     onRest: () => {
