@@ -17,7 +17,7 @@ export const Carousel = () => {
   useEffect(() => {
     //setting image change timeout
     let imageChangeInterval = setTimeout(() => {
-      if (currentImageNo < imageURL.length) {
+      if (currentImageNo < imageURL.length - 1) {
         setCurrentImageNo((currentImageNo) => currentImageNo + 1);
       } else {
         setCurrentImageNo(0);
