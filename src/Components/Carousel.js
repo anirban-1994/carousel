@@ -14,6 +14,20 @@ export const Carousel = () => {
       });
   }, []);
 
+  useEffect(() => {
+    //setting image change interval
+    let imageChangeInterval = setInterval(() => {
+      if (currentImageNo < imageURL.length) {
+        setCurrentImageNo((currentImageNo) => currentImageNo + 1);
+      } else {
+        setCurrentImageNo(0);
+      }
+    }, 2000);
+    return () => {
+      clearInterval(imageChangeInterval);
+    };
+  });
+
   return (
     <div className="w-[80%] min-w-[100px] max-w-[500px] aspect-square border border-gray-500 rounded-2xl p-2">
       <img src={imageURL[currentImageNo]} alt="" className="rounded-2xl" />
